@@ -13,4 +13,7 @@ public interface IUsuarioService {
     List<UsuarioResponseDto> listar();
     UsuarioResponseDto listarPorId(Integer id);
     void eliminar(Integer id);
+
+    List<Usuario> listarPorParametros(String nombre, String localidad);
+
 }

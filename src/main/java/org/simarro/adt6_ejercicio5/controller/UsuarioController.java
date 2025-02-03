@@ -52,5 +52,16 @@ public class UsuarioController {
 // Código 204 NOT CONTENT para delete
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+
+
+    @GetMapping("/buscar")
+    public ResponseEntity<List<Usuario>> listarPorParametros(@RequestParam(required = false) String nombre, @RequestParam(required = false) String localidad){
+        List<Usuario> lista = service.listarPorParametros(nombre, localidad);
+
+        return new ResponseEntity<>(lista, HttpStatus.OK);
+    }
+
+
 }
 

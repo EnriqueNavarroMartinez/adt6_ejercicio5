@@ -1,6 +1,7 @@
 package org.simarro.adt6_ejercicio5.model.udp;
 
 import jakarta.persistence.Column;
+import org.simarro.adt6_ejercicio5.model.Usuario;
 
 public class PaqueteResponseDto {
 
@@ -12,11 +13,14 @@ public class PaqueteResponseDto {
 
     private boolean entregado;
 
-    public PaqueteResponseDto(String nombre, float peso, float precio, boolean entregado) {
+    private Usuario usuario;
+
+    public PaqueteResponseDto(String nombre, float peso, float precio, boolean entregado, Usuario usuario) {
         this.nombre = nombre;
         this.peso = peso;
         this.precio = precio;
         this.entregado = entregado;
+        this.usuario=usuario;
     }
     public PaqueteResponseDto(){}
 
@@ -50,5 +54,13 @@ public class PaqueteResponseDto {
 
     public void setEntregado(boolean entregado) {
         this.entregado = entregado;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }

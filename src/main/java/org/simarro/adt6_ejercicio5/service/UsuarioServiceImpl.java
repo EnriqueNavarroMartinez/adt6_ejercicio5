@@ -67,4 +67,9 @@ public class UsuarioServiceImpl implements IUsuarioService{
     public void eliminar(Integer id) {
         repo.deleteById(id);
     }
+
+    @Override
+    public List<Usuario> listarPorParametros(String nombre, String localidad) {
+        return repo.listarPorParametros(nombre,localidad);
+    }
 }

@@ -51,6 +51,16 @@ public class PaqueteController {
 // Código 204 NOT CONTENT para delete
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @PutMapping("/{id}/entregado")
+    public ResponseEntity<Paquete> modificarEstado(@PathVariable("id") Integer id) {
+        Paquete obj = service.modificarEstado(id);
+        if (obj == null) {
+            return new ResponseEntity<>(obj, HttpStatus.NOT_FOUND);
+        }
+// Código 200 OK para update
+        return new ResponseEntity<>(obj, HttpStatus.OK);
+    }
 }
 
 

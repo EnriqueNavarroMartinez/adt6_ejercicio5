@@ -7,6 +7,7 @@ import org.simarro.adt6_ejercicio5.model.Usuario;
 import org.simarro.adt6_ejercicio5.model.udp.PaqueteRequestDto;
 import org.simarro.adt6_ejercicio5.model.udp.PaqueteResponseDto;
 import org.simarro.adt6_ejercicio5.repository.IPaqueteRepository;
+import org.simarro.adt6_ejercicio5.repository.IUsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,17 +24,20 @@ public class PaqueteServiceImpl implements IPaqueteService{
     private ModelMapper modelMapper;
 
     @Autowired
-    private IUsuarioService service;
+    private IUsuarioRepository repoUsuario;
 
 
     @Override
     public Paquete registrar(PaqueteRequestDto paqueteDTO) {
 
         Integer idUsuario = paqueteDTO.getUsuario().getId();
+        Optional<Usuario> usuario = repoUsuario.findById(paqueteDTO.getUsuario().getId());
 
         Paquete paqDto = modelMapper.map(paqueteDTO, Paquete.class);
 
-
+        if(usuario.isPresent()){
+            paqDto.setUsuario(usuario.get());
+        }
         return repo.save(paqDto);
     }
 
@@ -79,10 +83,19 @@ public class PaqueteServiceImpl implements IPaqueteService{
 
     @Override
     public Paquete modificarEstado(Integer id) {
-
-
-
+        Optional<Paquete> op = repo.findById(id);
+        if(op.isPresent()){
+            Paquete paqDto = op.get();
+            if(!paqDto.isEntregado()){
+                paqDto.setEntregado(true);
+            }
+            return repo.save(paqDto);
+        }else{
+            return null;
+        }
     }
+
+
 
 
 }
